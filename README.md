@@ -4,6 +4,20 @@ kontent-api
 JSON-REST backend store for websites. Websites, CMS, apps are clients talking to this API.
 
 
+## Setup
+
+Clone the repository and be sure you have virtualenv installed (`python-virtualenv` on .deb-based distro's). Then create a virtualenv for this project (in the example called `kontentenv` but you can call it whatever you want):
+
+```
+virtualenv kontentenv
+source kontentenv/bin/activate
+
+# now go into our source tree and install the dependencies:
+cd kontent-api
+pip install -r requirements.txt
+```
+
+
 ## Data model
 
 ### ContentGroup
