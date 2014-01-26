@@ -80,7 +80,7 @@ Tags also function as classical categories
 kinds of content a textfield can contain and their parsers which can output various types of formats. Markdown can be converted to HTML, HTML to plain text etc
 
 - Markdown
-- BBU
+- UBB (The Ultimate Bulletin Board markup)
 - Pure html
 - Plaintext (might be marked up as monospace in a client, for example)
 
