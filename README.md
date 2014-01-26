@@ -11,6 +11,7 @@ JSON-REST backend store for websites. Websites, CMS, apps are clients talking to
 filter on ContentObject to serve as category overview, for example (by filtering on certain tag, part of title, content type, etc)
 
 - filter: Filter
+- parent: ContentGroup (None of top, otherwise its parent in a tree of groups)
 
 
 ### ContentObject
@@ -88,6 +89,7 @@ kinds of content a textfield can contain and their parsers which can output vari
 
 filter object for grouping ContentObjects
 
+- title
 - type: Tag/search (regexp on title, content or something)
 
 
