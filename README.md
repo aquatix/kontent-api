@@ -6,6 +6,13 @@ JSON-REST backend store for websites. Websites, CMS, apps are clients talking to
 
 ## Data model
 
+### ContentGroup
+
+filter on ContentObject to serve as category overview, for example (by filtering on certain tag, part of title, content type, etc)
+
+- filter: Filter
+
+
 ### ContentObject
 
 meta object for a content entry (like an article, page or something). Contains references to the real items
@@ -19,11 +26,13 @@ meta object for a content entry (like an article, page or something). Contains r
 
 generic content item, specific types inherit from this
 
-- revision_date
+- revision_id: integer with version of this particular instance
+- revision_date: date/time stamp of this revision
 - title
 - authors: List of Author
-- privacy_state: private/public/?
-- tags: List of Tags
+- is_public: Boolean, denoting whether item is private or public
+- is_published: Boolean, denoting whether item has been published or (still) draft
+- tags: List of Tag
 
 
 ### TextItem
@@ -37,6 +46,8 @@ extends GenericItem
 
 ### ImageItem
 
+extends GenericItem
+
 - mimetype
 - url
 - width
@@ -48,7 +59,7 @@ An ImageItem has functions to return resized versions of the image, possibly in 
 
 ### BinaryItem
 
-generic attachment-like item
+extends GenericItem. Generic attachment-like item
 
 - mimetype
 - url
@@ -71,6 +82,13 @@ kinds of content a textfield can contain and their parsers which can output vari
 - BBU
 - Pure html
 - Plaintext (might be marked up as monospace in a client, for example)
+
+
+### Filter
+
+filter object for grouping ContentObjects
+
+- type: Tag/search (regexp on title, content or something)
 
 
 ### Author
