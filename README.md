@@ -15,23 +15,38 @@ source kontentenv/bin/activate
 # now go into our source tree and install the dependencies:
 cd kontent-api
 pip install -r requirements.txt
+
+# create a database (sqlite for now):
+cd kontent
+python manage.py syncdb
 ```
 
 
 ## Data model
 
+### Site
+
+site instance. The backend supports multiple sites
+
+- title
+- creation_date: date/time stamp
+- owner: User (more to denote who to address; right management is done through Django user management)
+
+
 ### ContentGroup
 
 filter on ContentObject to serve as category overview, for example (by filtering on certain tag, part of title, content type, etc)
 
+- site: Site (the site instance this group belongs to)
 - filter: Filter
-- parent: ContentGroup (None of top, otherwise its parent in a tree of groups)
+- parent: ContentGroup (None or top, otherwise its parent in a tree of groups)
 
 
 ### ContentObject
 
 meta object for a content entry (like an article, page or something). Contains references to the real items
 
+- site: Site (the site instance this group belongs to)
 - creation_date: date/time stamp of first version
 - current_date: date/time stamp of latest version
 - revisions: List of items, versions of this particular content item
@@ -41,6 +56,7 @@ meta object for a content entry (like an article, page or something). Contains r
 
 generic content item, specific types inherit from this
 
+- site: Site (the site instance this group belongs to)
 - revision_id: integer with version of this particular instance
 - revision_date: date/time stamp of this revision
 - title
