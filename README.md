@@ -24,13 +24,23 @@ python manage.py syncdb
 
 ## Data model
 
+### KontentUser
+
+user object; inherits from User? OneToOne?
+
+- User (Django auth user)
+- name
+- email
+- role: commenter, editor, admin
+
+
 ### Site
 
 site instance. The backend supports multiple sites
 
 - title
 - creation_date: date/time stamp
-- owner: User (more to denote who to address; right management is done through Django user management)
+- owner: KontentUser (more to denote who to address; right management is done through Django user management)
 
 
 ### ContentGroup
@@ -60,7 +70,7 @@ generic content item, specific types inherit from this
 - revision_id: integer with version of this particular instance
 - revision_date: date/time stamp of this revision
 - title
-- authors: List of Author
+- authors: List of KontentUser
 - is_public: Boolean, denoting whether item is private or public
 - is_published: Boolean, denoting whether item has been published or (still) draft
 - tags: List of Tag
@@ -123,9 +133,3 @@ filter object for grouping ContentObjects
 - type: Tag/search (regexp on title, content or something)
 
 
-### Author
-
-user object. Just make this a User?
-
-- name
-- email
