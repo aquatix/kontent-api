@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.conf.urls import patterns, url, include
 from rest_framework import viewsets
+from . import views
 
 urlpatterns = patterns(
         '',
