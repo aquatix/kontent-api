@@ -15,6 +15,7 @@ class KontentUser(BaseModel):
 
 
 class Site(BaseModel):
+    key = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
     owner = models.OneToOneField(KontentUser, related_name='site')
 
