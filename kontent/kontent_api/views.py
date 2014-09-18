@@ -1,6 +1,14 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
-from kontent_api.serializers import UserSerializer, GroupSerializer
+from .serializers import (
+        UserSerializer,
+        GroupSerializer,
+        SiteSerializer)
+from .models import (
+        KontentUser,
+        Site,
+        ContentGroup,
+        ContentObject)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -17,3 +25,11 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+
+
+class SiteViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Sites to be viewed or edited.
+    """
+    queryset = Site.objects.all()
+    serializer_class = SiteSerializer

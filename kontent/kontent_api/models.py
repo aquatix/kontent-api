@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class BaseModel(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, null=True)
@@ -21,10 +22,10 @@ class Site(BaseModel):
 
 
 class ContentGroup(BaseModel):
-    site = models.ManyToOneField(Site)
+    site = models.OneToOneField(Site)
     #filter = models.One
     parent = models.ManyToManyField('self', related_name='parent')
 
 
 class ContentObject(BaseModel):
-    site = models.ManyToOneField(Site)
+    site = models.OneToOneField(Site)
