@@ -6,7 +6,7 @@ from . import views
 
 urlpatterns = patterns(
         '',
-        url(r'^authenticate/', obtain_auth_token, name='authenticate'),
+        #url(r'^authenticate/', obtain_auth_token, name='authenticate'),
         url(r'^sites/(?P<pk>.+)/$', views.SiteDetail.as_view(), name='site-detail'),
         url(r'^sites/$', views.SiteList.as_view(), name='site-list'),
         url(r'^sites/(?P<site_pk>.+)/groups/(?P<pk>.+)/$', views.ContentGroupDetail.as_view(), name='contentgroup-detail'),
