@@ -22,3 +22,8 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class SiteSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Site
+
+
+class ContentGroupSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ContentGroup

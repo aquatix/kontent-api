@@ -3,7 +3,8 @@ from rest_framework import viewsets
 from .serializers import (
         UserSerializer,
         GroupSerializer,
-        SiteSerializer)
+        SiteSerializer,
+        ContentGroupSerializer)
 from .models import (
         KontentUser,
         Site,
@@ -27,9 +28,33 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
 
 
-class SiteViewSet(viewsets.ModelViewSet):
+class SiteList(viewsets.ModelViewSet):
+    """
+    API endpoint that allows lists of Sites to be viewed or edited.
+    """
+    queryset = Site.objects.all()
+    serializer_class = SiteSerializer
+
+
+class SiteDetail(viewsets.ModelViewSet):
     """
     API endpoint that allows Sites to be viewed or edited.
     """
     queryset = Site.objects.all()
     serializer_class = SiteSerializer
+
+
+class ContentGroupList(viewsets.ModelViewSet):
+    """
+    API endpoint that allows lists of ContentGroups to be viewed or edited.
+    """
+    queryset = ContentGroup.objects.all()
+    serializer_class = ContentGroupSerializer
+
+
+class ContentGroupDetail(viewsets.ModelViewSet):
+    """
+    API endpoint that allows ContentGroups to be viewed or edited.
+    """
+    queryset = ContentGroup.objects.all()
+    serializer_class = ContentGroupSerializer
