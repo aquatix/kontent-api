@@ -69,7 +69,7 @@ class ContentItem(BaseModel):
     )
 
     contenttype = models.IntegerField(choices=CHOICES, default=ARTICLE)
-    site = models.OneToOneField(Site)
+    site = models.ForeignKey(Site, related_name='site')
     author = models.ForeignKey(KontentUser, related_name='author')
     title = models.CharField(max_length=255, blank=True)
     slug = AutoSlugField(populate_from='title', unique_with='title')
@@ -95,8 +95,19 @@ class ContentItem(BaseModel):
     image = models.ImageField(width_field=image_width, height_field=image_height, blank=True)
 
     def save(self, *args, **kwargs):
-        if not self.id:
-            # Newly created object, so set slug
-            self.slug = unique_slugify(self.title)
+        #if not self.id and (original_url and not external_link):
+        if self.original_url and not self.external_link:
+            # Try to de-tiny-fy the url
+            self.external_link = self.deredirect(self.original_url)
 
         super(ContentItem, self).save(*args, **kwargs)
+
+    def deredirect(self, uri):
+        """
+        Try to get the original uri from a shortened/redirectified uri
+        """
+        import urllib2, httplib
+        request = urllib2.Request(uri)
+        opener = urllib2.build_opener()
+        f = opener.open(request)
+        return f.url
