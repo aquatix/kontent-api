@@ -1,8 +1,10 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
+from rest_framework import generics
 from .serializers import (
         UserSerializer,
         GroupSerializer,
+        KontentUserSerializer,
         SiteSerializer,
         ContentGroupSerializer)
 from .models import (
@@ -28,7 +30,31 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
 
 
-class SiteViewSet(viewsets.ModelViewSet):
+class KontentUserList(generics.ListCreateAPIView):
+    """
+    API endpoint that allows lists of authors/owners to be viewed or edited.
+    """
+    queryset = KontentUser.objects.all()
+    serializer_class = KontentUserSerializer
+
+
+class KontentUserDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    API endpoint that allows an author/owner to be viewed or edited.
+    """
+    queryset = KontentUser.objects.all()
+    serializer_class = KontentUserSerializer
+
+
+class SiteList(generics.ListAPIView):
+    """
+    API endpoint that allows lists of Sites to be viewed or edited.
+    """
+    queryset = Site.objects.all()
+    serializer_class = SiteSerializer
+
+
+class SiteDetail(generics.RetrieveAPIView):
     """
     API endpoint that allows Sites to be viewed or edited.
     """
@@ -36,7 +62,7 @@ class SiteViewSet(viewsets.ModelViewSet):
     serializer_class = SiteSerializer
 
 
-class ContentGroupList(viewsets.ModelViewSet):
+class ContentGroupList(generics.ListCreateAPIView):
     """
     API endpoint that allows lists of ContentGroups to be viewed or edited.
     """
@@ -44,9 +70,10 @@ class ContentGroupList(viewsets.ModelViewSet):
     serializer_class = ContentGroupSerializer
 
 
-class ContentGroupDetail(viewsets.ModelViewSet):
+class ContentGroupDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     API endpoint that allows ContentGroups to be viewed or edited.
     """
     queryset = ContentGroup.objects.all()
     serializer_class = ContentGroupSerializer
+

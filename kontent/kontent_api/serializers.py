@@ -19,6 +19,11 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'name')
 
 
+class KontentUserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = KontentUser
+
+
 class SiteSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Site
