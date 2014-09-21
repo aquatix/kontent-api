@@ -22,6 +22,7 @@ class Site(BaseModel):
 
 
 class ContentGroup(BaseModel):
+    name = models.CharField(max_length=255)
     site = models.OneToOneField(Site)
     #filter = models.One
     parent = models.ManyToManyField('self', related_name='parent')
