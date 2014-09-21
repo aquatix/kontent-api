@@ -16,7 +16,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
-        fields = ('url', 'name')
+        fields = ('url', 'title')
 
 
 class KontentUserSerializer(serializers.HyperlinkedModelSerializer):
@@ -32,3 +32,15 @@ class SiteSerializer(serializers.HyperlinkedModelSerializer):
 class ContentGroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ContentGroup
+
+
+class TextItem(serializers.HyperlinkedModelSerializer):
+    body = serializers.TextField()
+    body_html = serializers.TextField(source='body', read_only=True)
+
+    def transform_body_html(self, obj, value):
+        from django.contrib.markup.templatetags.markup import markdown
+        return markdown(value)
+
+    class Meta:
+        model = TextItem

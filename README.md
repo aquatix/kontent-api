@@ -69,7 +69,7 @@ meta object for a content entry (like an article, page or something). Contains r
 
 generic content item, specific types inherit from this
 
-- site: Site (the site instance this group belongs to)
+- site: Site (the site instance this item belongs to)
 - revision_id: integer with version of this particular instance
 - revision_date: date/time stamp of this revision
 - title
