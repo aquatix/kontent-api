@@ -13,4 +13,6 @@ urlpatterns = patterns(
         url(r'^sites/(?P<site_pk>.+)/groups/$', views.ContentGroupList.as_view(), name='contentgroup-list'),
         url(r'^accounts/(?P<pk>.+)/$', views.KontentUserDetail.as_view(), name='kontentuser-detail'),
         url(r'^accounts/$', views.KontentUserList.as_view(), name='kontentuser-list'),
+        url(r'^items/(?P<pk>.+)/$', views.ContentItemDetail.as_view(), name='contentitem-detail'),
+        url(r'^items/$', views.ContentItemList.as_view(), name='contentitem-list'),
 )

@@ -6,12 +6,14 @@ from .serializers import (
         GroupSerializer,
         KontentUserSerializer,
         SiteSerializer,
-        ContentGroupSerializer)
+        ContentGroupSerializer,
+        ContentItemSerializer)
 from .models import (
         KontentUser,
         Site,
         ContentGroup,
-        ContentObject)
+        ContentObject,
+        ContentItem)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -76,4 +78,20 @@ class ContentGroupDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = ContentGroup.objects.all()
     serializer_class = ContentGroupSerializer
+
+
+class ContentItemList(generics.ListCreateAPIView):
+    """
+    API endpoint that allows lists of ContentItems to be viewed or edited.
+    """
+    queryset = ContentItem.objects.all()
+    serializer_class = ContentItemSerializer
+
+
+class ContentItemDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    API endpoint that allows ContentItems to be viewed or edited.
+    """
+    queryset = ContentItem.objects.all()
+    serializer_class = ContentItemSerializer
 

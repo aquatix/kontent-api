@@ -1,10 +1,13 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
+import markdown
+from django.utils.safestring import mark_safe
 from .models import (
         KontentUser,
         Site,
         ContentGroup,
-        ContentObject)
+        ContentObject,
+        ContentItem)
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -34,13 +37,12 @@ class ContentGroupSerializer(serializers.HyperlinkedModelSerializer):
         model = ContentGroup
 
 
-class TextItem(serializers.HyperlinkedModelSerializer):
-    body = serializers.TextField()
-    body_html = serializers.TextField(source='body', read_only=True)
+class ContentItemSerializer(serializers.HyperlinkedModelSerializer):
+    body = serializers.CharField()
+    body_html = serializers.CharField(source='body', read_only=True)
 
     def transform_body_html(self, obj, value):
-        from django.contrib.markup.templatetags.markup import markdown
-        return markdown(value)
+        return mark_safe(markdown.markdown(value))
 
     class Meta:
-        model = TextItem
+        model = ContentItem
