@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.template.defaultfilters import slugify
+from autoslug import AutoSlugField
 
 class BaseModel(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, null=True)
@@ -40,14 +40,10 @@ class ContentGroup(BaseModel):
 
 class Tag(BaseModel):
     tag = models.CharField(max_length=255)
-    slug = models.SlugField()
+    slug = AutoSlugField(populate_from='tag')
 
-    def save(self, *args, **kwargs):
-        if not self.id:
-            # Newly created object, so set slug
-            self.slug = slugify(self.title)
-
-        super(test, self).save(*args, **kwargs)
+    def __unicode__(self):
+        return '{0} [{1}]'.format(self.tag, self.slug)
 
 
 class ContentObject(BaseModel):
@@ -76,7 +72,7 @@ class ContentItem(BaseModel):
     site = models.OneToOneField(Site)
     author = models.ForeignKey(KontentUser, related_name='author')
     title = models.CharField(max_length=255, blank=True)
-    slug = models.SlugField(blank=True)
+    slug = AutoSlugField(populate_from='title', unique_with='title')
     public = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
     publish_from = models.DateTimeField(blank=True, null=True)
@@ -101,6 +97,6 @@ class ContentItem(BaseModel):
     def save(self, *args, **kwargs):
         if not self.id:
             # Newly created object, so set slug
-            self.slug = slugify(self.title)
+            self.slug = unique_slugify(self.title)
 
         super(ContentItem, self).save(*args, **kwargs)
