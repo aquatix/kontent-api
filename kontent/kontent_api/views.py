@@ -28,15 +28,7 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
 
 
-class SiteList(viewsets.ModelViewSet):
-    """
-    API endpoint that allows lists of Sites to be viewed or edited.
-    """
-    queryset = Site.objects.all()
-    serializer_class = SiteSerializer
-
-
-class SiteDetail(viewsets.ModelViewSet):
+class SiteViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows Sites to be viewed or edited.
     """
