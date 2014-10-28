@@ -58,25 +58,15 @@ REST_FRAMEWORK = {
     'PAGINATE_BY': 10
 }
 
-from local_settings import *
+try:
+    from local_settings import *
+except ImportError:
+    pass
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 DATABASES = {
-    'sqlite': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
-    'mysql': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': DB_DATABASE,
-        'USER': DB_USERNAME,
-        'PASSWORD': DB_PASSWORD,
-        'HOST': DB_HOSTNAME,
-        'PORT': '3306',
-        'OPTIONS': { 'init_command': 'SET storage_engine=INNODB;' },
-    },
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': DB_DATABASE,
